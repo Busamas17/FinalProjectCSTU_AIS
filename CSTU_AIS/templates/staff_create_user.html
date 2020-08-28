@@ -1,0 +1,63 @@
+{% extends 'staffbase.html' %}
+{% load static %}
+{% block title %}Create New User{% endblock %}
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+
+    <div class="outer">
+    <div class="head">เพิ่มผู้ใช้งานรายบุคคล</div>
+    <div class="inner" >
+        <div class="row">
+            <div class="col-sm-3"><p>ชื่อผู้ใช้ : </p></div>
+            <div class="col-sm-8"><p><input type="text" name="username"> </p></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3"><p>ประเภทผู้ใช้งาน : </p></div>
+            <div class="col-sm-8"><p><select name="type"> </p>
+                <option value=1>นักศึกษา</option>
+                <option value=2>อาจารย์</option>
+                <option value=3>เจ้าหน้าที่</option>
+            </select></p></div>
+        </div>           
+    </div>
+    </div>
+    <div class="container text-center">
+        <button id="create" class="btn" type="submit">Create</button>  
+        </div>
+        
+    <div class="outer">
+    <div class="head">เพิ่มผู้ใช้งานจากไฟล์ .csv / .xlsx</div>
+    <div class="inner">
+    <label for="file1"> เลือกไฟล์ </label>
+    <input type="file" id="file1" name="file">
+    <small>เฉพาะนามสกุล .csv หรือ .xlsx เท่านั้น</small>     
+    <input type="submit" value="Upload"> 
+    </div>
+    </div>
+    
+    <div class="outer">
+        <div class="head">ตัวอย่างไฟล์และไฟล์ต้นแบบสำหรับอัพโหลด</div>
+        <div class="inner">
+        <div class="container text-center"><img src="{% static 'user-xlxs-example.png' %}" ></div>
+        
+        <div  style="margin-top: 10px;">คำอธิบาย : <br/>
+            <p style="font-size: 13px;">1. คอลัมน์ A - username หมายถึง ชื่อผู้ใช้งาน<br/>
+            2. คอลัมน์ B - is_student หมายถึง ถ้าผู้ใช้งานเป็นนักศึกษา ใส่ 1 หรือ True ถ้าไม่ใช่ ใส่ 0 หรือ False<br/>
+            3. คอลัมน์ C - is_staff หมายถึง ถ้าผู้ใช้งานเป็นเจ้าหน้าที่ ใส่ 1 หรือ True ถ้าไม่ใช่ ใส่ 0 หรือ False <br/>
+            4. คอลัมน์ D - is_teacher หมายถึง ถ้าผู้ใช้งานเป็นอาจารย์ ใส่ 1 หรือ True ถ้าไม่ใช่ ใส่ 0 หรือ False<br/>
+        </div>
+        <div style="margin-top: 10px;"> <strong>ดาวน์โหลดไฟล์ต้นแบบคลิก <a href="https://drive.google.com/uc?export=download&id=1Q05jHCw_1Xp5iH9tKz-qjcLsBQZ9XZRF">ที่นี่</a><strong</div>
+        </div>
+        </div>
+            
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %} <script>alert("{{ message }}")</script> 
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    </form>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Student Create{% endblock %}
+{% block content %}
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <h1 id="a">Create New User</h1>
+    <p>**จำเป็นต้องกรอกให้ครบทุกช่อง</p>
+    <p>Teacher ID : {{request.user}} </p>
+    <p>คำนำหน้า: <select id="curri" name="title"> 
+        <option value=1>นาย</option>
+        <option value=2>นาง</option>
+        <option value=3>นางสาว</option>
+    </select></p>
+    <p>Name : <input type="text" name="name"/></p>
+    Surname : <input type="text" name="surname"/><br/>
+    Academic Position: <input type="text" name="ac_pst"/><br/>
+    Management Position: <input type="text" name="mng_pst"/><br/>
+    Education: <input type="text" name="edc"/><br/>
+    Works: </br>
+    <textarea cols="35" rows="8" name="works">
+    </textarea><br/>
+
+    
+    <input type="submit" value="OK"/>
+        
+    </form> 
+
+{% endblock %}

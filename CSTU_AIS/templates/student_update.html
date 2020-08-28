@@ -1,0 +1,77 @@
+{% extends 'studentbase.html' %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="outer">
+    <div class="head">แก้ไขข้อมูลนักศึกษา</div>
+    <div class="inner">
+    <div class="row">
+        <div class="col-sm-2"><p>รหัสนักศึกษา : </p></div>
+        <div class="col-sm-5"><p>{{request.user}} </p></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2" ><p>ชื่อ : </p></div>
+        <div class="col-sm-5"><p><input type="text" name="name"/></p></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><p>ที่อยู่ : </p></div>
+        <div class="col-sm-5"><p><textarea cols="35" rows="8" name="address" required>
+        </textarea></p></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><p>เบอร์โทรศัพท์ : </p></div>
+        <div class="col-sm-5"><p><input type="text" name="phone" placeholder="ex : 088-222222" pattern="\d{3}[-]\d{7}"  maxlength="11" size="12" /></p></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><p>อีเมล์ : </p></div>
+        <div class="col-sm-5"><p><input type="email" name="email" /></p></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><p>ไอดีไลน์ : </p></div>
+        <div class="col-sm-5"><p><input type="text" name="line_id" size=12/></p></div>
+    </div>
+    </div>
+    </div>
+
+    <div class="outer">
+    <div class="head">แก้ไขข้อมูลผู้กครอง</div>
+    <div class="inner">
+        <div class="row">
+            <div class="col-sm-2"><p>คำนำหน้า : </p></div>
+            <div class="col-sm-5"><p><select name="p_title"> 
+                <option value=0>คำนำหน้า</option>
+                {% for obj in title %}
+                <option value="{{obj.id}}">{{obj.title}}</option>
+                {% endfor %}
+            </select></p></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"><p>ชื่อ : </p></div>
+            <div class="col-sm-5"><p><input type="text" name="p_name"/></p></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"><p>นามสกุล : </p></div>
+            <div class="col-sm-5"><p><input type="text" name="p_surname" /></p></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"><p>ความเกี่ยวข้อง : </p></div>
+            <div class="col-sm-5"><p><input type="text" name="p_relation"/></p></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"><p>เบอร์โทรศัพท์ : </p></div>
+            <div class="col-sm-5"><p><input type="text" name="p_phone" maxlength="11" 
+                placeholder="ex : 088-222222" pattern="\d{3}[-]\d{7}"  size="15" /></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"><p>รายได้/ปี : </p></div>
+            <div class="col-sm-5"><p><input type="number" name="p_income" size="15"/> บาท</p></div>
+        </div>
+    </div>
+    </div>
+    <div class="container text-center"><input type="submit" value="แก้ไข"/></div>
+    </form>
+{% endblock %}

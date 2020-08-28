@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <div class="d-flex justify-content-center h-100" style="margin-top: 50px;">
+    <div class="card content-center" >
+      <div class="card-header fakeimg text-center" >
+        <h3>CSTU Information System</h3>
+      </div>
+      <div class="card-body text-center" style="padding-bottom: 20px;" >
+        <p>username : <input type="text" name="user"></p>
+        <p>password : <input type="password" name="pass"></p>
+      </div>
+      <div class="container text-center" style="margin-bottom: 10px;"> <input type="submit" value="Login"/></div>
+      </div>
+  </div>
+</form>
+
+{% if messages %}
+        {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'studentbase.html' %}
+{% load static %}
+{% block title %}Add Enrollmentt{% endblock %}
+{% block content %}
+
+<style>
+    .source,.target{
+        font-size: 14px;
+    }
+    #add_delete {
+        float:right;
+    }
+    .button {
+        background-color: white;
+        margin-top: 16px;
+        margin-right: 8px;
+        border-radius: 3px;
+        cursor: pointer;
+        border: none;
+    }
+    #cloneBtn:hover{
+        background-color: #4CAF50;
+    }
+    #deleteBtn:hover{
+        background-color: tomato;
+    }
+
+</style>
+
+<div id="add_delete"><button class="button" id="cloneBtn">เพิ่มรายวิชา</button><button class="button" id="deleteBtn" onclick="deleteRow()">ลบรายวิชา</button></div>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="outer">
+    <div class="head">เพิ่มข้อมูลการลงทะเบียน</div>
+    <div class="inner">
+    <div class='source' id='sub1'> 
+        <p>รหัสวิชา : <select  name="subj1" style="width: 300px;"> 
+                {% for obj in course %}
+                <option value="{{obj.course_id}}">{{obj.course_id}} {{obj.course_name}}</option>
+                {% endfor %}
+                </select>
+            ภาคการศึกษา : <select  name="sem1" id="sem" > 
+            <option value=1> 1</option>
+            <option value=2> 2</option>
+            <option value=3> ฤดูร้อน</option>
+    </select>  ปีการศึกษา <select  name="year1" id="year" onload="createyear(this);"> 
+    <option value="{{year}}"> {{year}}</option>
+    </select> 
+    ผลการเรียน : <select data-live-search="true" name="grade1"> 
+        <option value="0"> ผลการเรียน</option>
+        {% for obj in grade %}
+        <option value="{{obj.grade}}">{{obj.grade}}</option>
+        {% endfor %}
+    </select></p></div>
+    <div class="target"></div>
+    </div>
+    </div>
+    <div class="container text-center"> <input type="submit" value="OK"/> </div>
+    <input type="hidden" name="count" value="1">
+
+    {% if messages %}
+        {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+    </form>
+    
+
+    <script>
+        var y = parseInt(document.getElementById("year").value);
+        for (i = 1; i<8; i++) {
+            var opt = document.createElement("option");
+            document.getElementById("year").innerHTML += '<option id="' + i + '">' + (y+i) + '</option>';
+        }
+        function CloneCtrl() {
+            'use strict';
+            var self = this;
+            self.source = document.querySelector('.source');
+            self.target = document.querySelector('.target');
+  
+            self.cloneSource = function(event) {
+                
+            var clone = self.source.cloneNode(true);
+            
+            self.target.appendChild(clone);
+            var len =document.querySelectorAll('div.source').length;
+            clone.id = 'sub'+len;
+            clone.querySelector("select[name='subj1']").name = 'subj'+len;
+            clone.querySelector("select[name='sem1']").name = 'sem'+len;
+            clone.querySelector("select[name='year1']").name = 'year'+len;
+            clone.querySelector("select[name='grade1']").name = 'grade'+len;
+            document.querySelector("input[name='count']").value = len;
+            }
+  
+            document
+            .getElementById('cloneBtn')
+            .addEventListener('click', self.cloneSource);
+        }
+
+        document.addEventListener('DOMContentLoaded', CloneCtrl);
+
+        function deleteRow() {
+            
+            var len =document.querySelectorAll('div.source').length;
+            var div_id ='sub'+len; 
+            if(len!=1)
+                document.getElementById(div_id).remove();
+                document.querySelector("input[name='count']").value = document.querySelectorAll('div.source').length;  
+        }
+
+        $('.select2').select2();
+        
+        document.querySelector("select[name='sub1']").value = document.getElementById("select2-e-container").title;
+
+    </script>
+    
+{% endblock %}

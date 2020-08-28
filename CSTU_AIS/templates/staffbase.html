@@ -1,0 +1,145 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+  
+  <style>
+    button{
+      border: 1px solid #ccc;
+      background-color: BBBBBB;
+    }
+    .block {
+      display: block;
+      width: 50%;
+      border: none;
+      background-color: #67823A;
+      color: white;
+      padding: 9px 10px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      }
+    .header {
+      background: #2471A3;
+      color: white;
+      overflow: hidden;
+    }
+    #logo{
+      float: left;
+    }
+    .menulist{
+      padding:5px;
+      padding-left: 10px;
+      background-color: #2471A3;
+      border-bottom: white solid 1px;
+    }
+    .menu{
+      color: white;
+      font-size: 15px;
+    }
+
+    #user{
+      float:right;
+      font-size: 12px;
+      padding-right: 20px;
+      padding-top: 12px ;
+    }
+    input, select, textarea , .select2{
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      resize: vertical;
+      font-size: 14px;
+    }
+    input[type="file"] {
+      width: 500px;
+    }
+
+    input[type="submit"]{
+      border-radius: 0;
+    }
+    p{
+      margin: 1px;
+      padding: 0;
+    }
+    .head{
+      background-color: #2471A3; 
+      padding-left: 20px; 
+      font-size: large;
+      color : white;
+      padding-bottom: 5px;
+      padding-top: 5px;
+    
+    }
+    .outer {
+      margin-top: 10px;
+      margin-left: 10px;
+      border : #2471A3 solid 1px;
+      font-size: 14px;
+      width: 100%;
+    }
+    .inner {
+      padding-left : 20px; 
+      padding-top: 10px;
+      padding-bottom: 4px;
+    }
+
+    #create,#upload{
+        background-color: white;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: #2471A3;
+        color: white;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+
+</head>
+<body style="background-color:#D1F2EB;">
+
+<div class="header" style="margin-bottom:0; overflow: hidden;">
+    <p id="user">ผู้ใช้งาน : {{user.username}}</p>
+    <img id="logo" src="{% static 'dome.png' %}" height="120">
+    <p style="padding-top:12px;"><span style="font-size:26px;">CS@TU</span><br/>
+    <span style="font-size:20px; padding-top: 0;">Computer Science</span><br/>
+    <span style="font-size:15px;">Thammasat University (Rangsit Campus)</span><br/></p> 
+</div>
+</div>
+<div class="row ">
+<div class="col-sm-4r" style="background-color:#2471A3; border: white solid 1px; height: 100vh;" >
+    <div class="menulist"><a href="{% url 'create_user' %}" class="btn menu" role="button">สร้างผู้ใช้งานใหม่</a></div>
+    <div class="menulist"><a href="{% url 'course_upload' %}" class="btn menu" role="button">เพิ่มรายวิชา</a></div>
+    <div class="menulist"><a href="{% url 'teacher_upload' %}" class="btn menu" role="button">เพิ่มข้อมูลอาจารย์</a></div>
+    <div class="menulist"><a href="{% url 'student_upload' %}" class="btn menu" role="button">เพิ่มข้อมูลส่วนตัวนักศึกษา</a></div> 
+    <div class="menulist"><a href="{% url 'enrollment_upload' %}" class="btn menu" role="button" style="text-align: left;">เพิ่มข้อมูลการลงทะเบียน<br/>ของนักศึกษา</a></div>
+    <div class="menulist"><a href="{% url 'search_student' %}" class="btn menu" role="button" style="text-align: left;">แก้ไขข้อมูลนักศึกษา</a></div>
+    <div class="menulist"><a href="{% url 'view_dashboard' %}" class="btn menu" role="button" style="text-align: left;">ดูข้อมูลก่อนระดับมัธยมและข้อมูล<br/>การสอบเข้าของนักศึกษา</a></div>
+    <div class="menulist"><a href="{% url 'view_dashboard2' %}" class="btn menu" role="button">ดูข้อมูลผลการศึกษาของนักศึกษา</a></div>
+    <div class="menulist"><a href="{% url 'logout' %}" class="btn menu" role="button">ออกจากระบบ</a></div>
+</div>
+  <div class="col-sm-8r">
+  {% block content %}
+
+  {% endblock %}
+</div>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,27 @@
+{% extends 'teacherbase.html' %}
+{% block title %}Teacher Profile{% endblock %}
+{% block content %}
+
+  <div class="outer">
+  <div class="head">ข้อมูลอาจารย์</div>
+  <div class="inner">
+  รหัสอาจารย์ : {{data.teacher_id}} <br/>
+  ชื่อ : {{data.academic_position}} {{data.education_position}}{{data.name}} {{data.surname}} <br/>
+  การศึกษา : {{data.education}} <br/>
+  ผลงาน : {{data.works}} <br/>
+  </div>
+  </div>
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
+  
+  <div class="container text-center">
+    <a id="create" class="btn" role="button" href="{% url 'edit_teacher' %}">Edit Profile</a> 
+</div>
+
+{% endblock %}

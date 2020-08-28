@@ -1,0 +1,96 @@
+{% extends 'staffbase.html' %}
+{% load static %}
+{% block title %}Course Upload{% endblock %}
+{% block content %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="outer">
+            <div class="head">เพิ่มข้อมูลแต่ละรายวิชาจากไฟล์ .xlsx</div>
+            <div class="inner" >
+            <label for="file1"> Upload a file</label>
+            <input type="file" id="file1" name="file1">
+            <small>เฉพาะนามสกุล .xlsx เท่านั้น</small>
+            <input type="submit" value="Upload">
+            </div>
+            </div>
+            
+            <div class="outer">
+            <div class="head">เพิ่มข้อมูลวิชาบังคับก่อนของแต่ละรายวิชาจากไฟล์ .xlsx</div>
+            <div class="inner" >
+            <label for="file1"> Upload a file</label>
+            <input type="file" id="file2" name="file2">
+            <small>เฉพาะนามสกุล .xlsx เท่านั้น</small>
+            <input type="submit" value="Upload">
+            </div>
+            </div>
+
+            <div class="outer">
+            <div class="head">ตัวอย่างไฟล์และไฟล์ต้นแบบสำหรับอัพโหลด</div>
+            <div class="inner">
+            <p><strong>1. ตัวอย่างไฟล์สำหรับเพิ่มข้อมูลแต่ละรายวิชา</strong></p>
+            <img src="{% static 'course-xlxs-example.png' %}" style="width: 800px;">
+            
+            <div  style="margin-top: 10px;">คำอธิบาย : <br/>
+                <p style="font-size: 13px;">1. คอลัมน์ A - course_id หมายถึง รหัสวิชา<br/>
+                2. คอลัมน์ B - curriculum หมายถึง หลักสูตร (56/61)<br/>
+                3. คอลัมน์ C - course_name หมายถึง ชื่อวิชา <br/>
+                4. คอลัมน์ D - course_description หมายถึง คำอธิบายรายวิชา<br/>
+                5. คอลัมน์ E - credit หมายถึง หน่วยกิต<br/>
+                6. คอลัมน์ F - lecture_hours หมายถึง จำนวนชั่วโมงเรียนใน 1 สัปดาห์<br/>
+                7. คอลัมน์ G - lab_hours หมายถึง จำนวนชั่วโมงทำแลปใน 1 สัปดาห์<br/>
+                8. คอลัมน์ H - selfstudy_hours หมายถึง จำนวนชั่วโมงศึกษาด้วยตนเองใน 1 สัปดาห์<br/></p>
+            </div>
+            <div style="margin-top: 10px;"> <strong>ดาวน์โหลดไฟล์ต้นแบบคลิก <a href="https://drive.google.com/uc?export=download&id=1OV2jcm3Z-DNkJXQ6qF9UGCWfCyduyD4-">ที่นี่</a></strong></div>  
+        
+        </div>
+        </div>
+
+        <div class="outer">
+            <div class="head">ตัวอย่างไฟล์และไฟล์ต้นแบบสำหรับอัพโหลด</div>
+            <div class="inner">
+            <p><strong>2. ตัวอย่างไฟล์สำหรับเพิ่มข้อมูลวิชายังคับก่อน</strong></p>
+            <div class="container text-center"><img src="{% static 'pre_req-xlxs-example.png' %}"></div>
+            
+            <div  style="margin-top: 10px;">คำอธิบาย : <br/>
+                <p style="font-size: 13px;">1. คอลัมน์ A - Pre หมายถึง รหัสวิชาสำหรับวิชาบังคับก่อน<br/>
+                2. คอลัมน์ B - Post หมายถึง รหัสวิชา<br/>
+                3. คอลัมน์ C - Group หมายถึง กลุ่มของวิชาบังคับก่อน กลุ่มเดียวกันเงื่อนไขคือและ / มากกว่า 1กลุ่ม เงื่อนไขคือหรือ <br/>
+                4. คอลัมน์ D - Pre_type หมายถึง เงื่อนไขของวิชาบังคับก่อน <br/>
+                </p>
+            </div>
+            
+            <div  style="margin-top: 10px;">ตัวอย่างวิชา EL171<small> (แถวที่ 1) </small>: <br/>
+                <p style="font-size: 13px;">
+                    Pre คือ EL070 , <br/>
+                    Post คือ EL171 , <br/>
+                    Gruop คือ 1 , <br/>
+                    Pre_type คือ 1   <br/>                
+                    ความหมาย : ถ้าจะลงทะเบียนวิชา EL171 จะต้องเคยศึกษาวิชา EL070 มาก่อน<br/>
+                </p>
+            </div>
+            <div  style="margin-top: 10px;">ตัวอย่างวิชา SC123 <small> (แถวที่ 4,5) </small>: <br/>
+                <p style="font-size: 13px;">
+                    Pre คือ EL070 , <br/>
+                            Post คือ EL171 , <br/>
+                            Gruop คือ 1 , <br/>
+                            Pre_type คือ 1   <br/>                
+                    ความหมาย : ถ้าจะลงทะเบียนวิชา EL171 จะต้องเคยศึกษาวิชา EL070 มาก่อน<br/>
+                </p>
+            </div>
+            <div style="margin-top: 10px;"> <strong>ดาวน์โหลดไฟล์ต้นแบบคลิก <a href="https://drive.google.com/uc?export=download&id=1vGOMVtLafDWHewsTcvig-RnUSY99xFLp">ที่นี่</a></strong></div>
+            
+            
+        
+        </div>
+        </div>
+   
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+        {% endif %}
+        </form>
+
+        
+    
+    {% endblock %}

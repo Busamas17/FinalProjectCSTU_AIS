@@ -1,0 +1,47 @@
+{% extends 'studentbase.html' %}
+{% load static %}
+{% block title %}Student Profile{% endblock %}
+{% block content %}
+    
+        <div class="outer">
+        <div class="head">ข้อมูลนักศึกษา</div>
+        <div class="inner">
+        <p>คำนำหน้า : {{data.titles}}</p>
+        <p>ชื่อ-นามสกุล : {{data.name}} {{data.surname}}</p>
+        <p>รหัสนักศึกษา : {{data.student_id}}</p>
+        <p>ปีที่เข้าศึกษา : พ.ศ. {{data.admit_year}}</p>
+        <p>สถานะ : {{data.status}}</p>
+        <p>ระดับการศึกษา : {{data.degree}}</p>
+        <p>หลักสูตร :  {{data.curri}}</p>
+        <p>ศูนย์ : {{data.campus}}</p>
+        <p>สาขา/วิชาเอก : {{data.major_track}}</p>
+        <p>เกรดเฉลี่ย : {{data.gpa}} </p>
+        <p>อาจารย์ที่ปรึกษา : {{data.adviser.academic_position}} {{data.adviser.education_position}}{{data.adviser.name}} {{data.adviser.surname}} </p>
+        <p>ที่อยู่ : {{data.address}} </p>
+        <p>เบอร์โทรศัพท์ : {{data.phone}}</p>
+        <p>อีเมล์ : {{data.email}} </p>
+        </div>
+        </div>
+        <div class="outer">
+        <div class="head">ข้อมูลผู้ปกครอง</div>
+        <div class="inner">
+        <p>ผู้ปกครอง : {{data.parent.title}} {{data.parent.p_name}} {{data.parent.p_surname}}</p>
+        <p>ความเกี่ยวข้อง : {{data.parent.p_relation}}</p>
+        <p>เบอร์โทรศัพท์ : {{data.parent.p_phone}}</p>
+        <p>รายได้/ปี : {{data.parent.p_income}} บาท</p>
+        </div>
+        </div>
+        
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
+    <div class="container text-center">
+      <a href="{% url 'edit_student' %}" class="btn" role="button">แก้ไขข้อมูลนักศึกษา</a>
+    </div>
+
+{% endblock %}

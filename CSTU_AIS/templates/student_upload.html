@@ -1,0 +1,142 @@
+{% extends 'staffbase.html' %}
+{% load static %}
+{% block title %}Add/Update Student Info{% endblock %}
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="outer">
+    <div class="head">เพิ่มข้อมูลนักศึกษาใหม่</div>
+    <div class="inner">
+        
+        <div class="row">
+            <div class="col-sm-3"><p>รหัสนักศึกษา : </p></div>
+            <div class="col-sm-6"><p><input type="text" name="student_id"/></p></div>
+        </div> 
+        <div class="row">
+            <div class="col-sm-3"><p>คำนำหน้า : </p></div>
+            <div class="col-sm-6"><p><select name="title"> 
+                <option value="0">คำนำหน้า</option>
+                <option value="นาย">นาย</option>
+                <option value="นาง">นาง</option>
+                <option value="นางสาว">นางสาว</option>
+            </select></p></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3"><p>ชื่อ : </p></div>
+            <div class="col-sm-6"><p><input type="text" name="name"/></p></div>
+        </div>  
+        <div class="row">
+            <div class="col-sm-3"><p>นามสกุล : </p></div>
+            <div class="col-sm-6"><p><input type="text" name="surname"/></p></div>
+        </div>  
+        <div class="row">
+            <div class="col-sm-3"><p>หลักสูตร : </p></div>
+            <div class="col-sm-6"><p><select  id = 'curri' name="curri" onchange="selectMajor(this);"> 
+                <option value=0>หลักสูตร</option>
+                <option value=1>56</option>
+                <option value=2>61</option>
+            </select></p></div>
+        </div> 
+        
+        <div class="row">
+            <div class="col-sm-3"><p>วิชาเอก/สาขา : </p></div>
+            <div class="col-sm-6"><p><select id="major" name="major">
+                <option value="0">วิชาเอก/สาขา</option>
+              </select></p></div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-3"><p>ศูนย์ : </p></div>
+            <div class="col-sm-6"><p><select name="campus"> 
+                <option value="ท่าพระจันทร์">ท่าพระจันทร์</option>
+                <option value="รังสิต">รังสิต</option>
+                <option value="ลำปาง">ลำปาง</option>
+            </select></p></div>
+        </div>
+    </div>
+    </div>
+    <div class="container text-center">
+        <button id="create" class="btn" type="submit">Create</button>
+    </div>
+
+    <div class="outer">
+        <div class="head">เพิ่ม/แก้ไข ข้อมูลนักศึกษา จากไฟล์ .csv / .xlsx</div>
+        <div class="inner">
+        <h1></h1>
+        <label for="file1"> เลือกไฟล์</label>
+        <input type="file" id="file1" name="file">
+        <small>เฉพาะนามสกุล .csv หรือ .xlsx เท่านั้น</small>
+        <input type="submit" value="Upload">
+        </div>
+        </div>
+
+        <div class="outer">
+            <div class="head">ตัวอย่างไฟล์และเทมเพลตสำหรับอัพโหลด</div>
+            <div class="inner">
+            <img src="{% static 'student-xlxs-example.png' %}" style="width: 800px;">
+                
+            <div  style="margin-top: 10px;">คำอธิบาย : <br/>
+                <p style="font-size: 13px;">1. คอลัมน์ A - STUDENTCODE_SALT_HASH หมายถึง รหัสนักศึกษา<br/>
+                    2. คอลัมน์ B - STUDENT_NAME_SURNAME_SALT_HASH หมายถึง ชื่อ-นามสกุล นักศึกษา<br/>
+                    3. คอลัมน์ C - LEVELNAME หมายถึง ระดับการศึกษา (ปริญญาตรี ปริญญาโท ปริญญาเอก) <br/>
+                    4. คอลัมน์ D - ADMITACADYEAR หมายถึง ปีที่เข้าศึกษา<br/>
+                    5. คอลัมน์ E - APPLICANTTYPEID หมายถึง รหัสโครงการ<br/>
+                    6. คอลัมน์ F - APPLICANTTYPENAME หมายถึง โครงการ<br/>
+                    7. คอลัมน์ G - APPLICANTTYPENAME_MORESPECIFIC หมายถึง ปีการศึกษาที่ลงทะเบียน<br/>
+                    8. คอลัมน์ H - STUDENT_HIGHSCHOOL_STUDY_PLAN หมายถึง แผนการเรียนในระดับมัธยม<br/>
+                    8. คอลัมน์ I - STUDENT_HIGHSCHOOL หมายถึง โรงเรียนที่จบการศึกษา<br/>
+                    8. คอลัมน์ J - STUDENT_HIGHSCHOOL_GPA หมายถึง เกรดเฉลี่ย 6 เทอมในระดับมัธยม<br/>
+            </div>
+            <div style="margin-top: 10px;"> <strong>ดาวน์โหลดไฟล์ต้นแบบคลิก <a href="https://drive.google.com/uc?export=download&id=10oz9rTm1ClodcQ9HlaPrFqxLpcINtIQx">ที่นี่</a><strong</div>
+            </div>
+            </div>
+</form>
+
+<script type="text/javascript" language="Javascript">
+    
+    var lists = new Array(3) 
+        lists[0] = [""]; 
+        lists[1] = ["กลุ่มวิชาวิทยาการคอมพิวเตอร (CS)", "กลุ่มวิชาวิศวกรรมซอฟต์แวร์ (SE)", "กลุ่มวิชาคอมพิวเตอร์กราฟิกส์ (CG)"]; 
+        lists[2] = ["คอมพิวเตอร์และวิทยาการสารสนเทศ (CIS)", "คอมพิวเตอร์ประยุกต์ (ACS)", "เทคโนโลยีการเรียนรู้ (LT)"]; 
+    
+        function selectMajor(selectObj) { 
+
+            var idx = selectObj.selectedIndex; 
+            var which = selectObj.options[idx].value; 
+
+            cList = lists[which]; 
+
+            var cSelect = document.getElementById("major"); 
+            var len=cSelect.options.length; 
+            while (cSelect.options.length > 0) { 
+                cSelect.remove(0); 
+        }
+        
+        var newOption; 
+ 
+        for (var i=0; i<cList.length; i++) { 
+            newOption = document.createElement("option"); 
+            newOption.value = cList[i];  
+            newOption.text= cList[i]; 
+
+        try { 
+            cSelect.add(newOption); 
+        } 
+        catch (e) { 
+            cSelect.appendChild(newOption); 
+        } 
+    } 
+    } 
+    window.onload = function() {
+    }
+    </script>
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}

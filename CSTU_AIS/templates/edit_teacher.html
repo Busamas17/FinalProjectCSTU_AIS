@@ -1,0 +1,63 @@
+{% extends 'teacherbase.html' %}
+{% block title %}Update Teacher Profile{% endblock %}
+
+{% block content %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="outer">
+    <div class="head">แก้ไขข้อมูลอาจารย์</div>
+    <div class="inner">
+
+      <div class="row">
+        <div class="col-sm-3"><p>รหัสอาจารย์ : </p></div>
+        <div class="col-sm-5"><p>{{user.username}} </p></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3"><p>ตำแหน่งทางวิชาการ : </p></div>
+        <div class="col-sm-5"><p><select  name="aca"> 
+          <option value="0">ตำแหน่งทางวิชาการ</option>
+          <option value="อ.">อ.</option>
+          <option value="ผศ.">ผศ.</option>
+          <option value="รศ.">รศ.</option>
+          <option value="ศ.">ศ.</option>
+        </select></p></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3"><p>ตำแหน่งทางการศึกษา : </p></div>
+        <div class="col-sm-5"><p><select name="edu"> 
+          <option value="0">ตำแหน่งทางการศึกษา</option>
+          <option value="ดร.">ดร.</option>
+          <option value=" ">ไม่มี</option>
+          </select></p></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3"><p>ชื่อ : </p></div>
+        <div class="col-sm-5"><p><input type="text" name="name"/></p></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3"><p>นามสกุล : </p></div>
+        <div class="col-sm-5"><p><input type="text" name="surname"/></p></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3"><p>การศึกษา : </p></div>
+        <div class="col-sm-5"><p><input type="text" name="edc"/> </p></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3"><p>ผลงาน : </p></div>
+        <div class="col-sm-5"><p><textarea cols="35" rows="8" name="works">
+        </textarea></p></div>
+      </div>
+
+    </div>
+    </div>
+    <div class="container text-center">
+      <button id="create" class="btn" type="submit">Update</button>  
+    </div>
+    </form>
+{% endblock %}

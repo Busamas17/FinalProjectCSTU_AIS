@@ -1,0 +1,187 @@
+{% extends 'studentbase.html' %}
+{% block title %}View Enrollment{% endblock %}
+{% block content %}
+
+<style>
+    .header {
+        background-color: steelblue; 
+        color:white;
+    }
+    .col-sm-3 {
+        border-bottom: steelblue 1px solid;
+    }
+    .col-sm-6 {
+        border-bottom: steelblue 1px solid;
+    }
+</style>
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <div class="outer" style="width: 750px;">
+    <div class="head">ดูข้อมูลการลงทะเบียน</div>
+    <div class="inner" style="margin-left: 20px;">
+
+    {%if ent_1 %} 
+    {%for obj in ent_1%} 
+    {% empty %}
+        <div class="container text-center"> **************** ไม่มีข้อมูลการลงทะเบียน ****************</div>
+    {% endfor %}
+    <div class="row" style=" width: 700px;">
+    <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 1/{{ent_1.0.academic_year}}</div>
+    <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    </div>
+    {% endif %}
+    <div class="row" style="width: 700px;" >
+    {%for obj in ent_1%} 
+        {% ifequal obj.semester "1" %}
+        <div class="col-sm-3" style="text-align: center;" >{{obj.course_id}} </div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %} 
+    {% endfor %}
+        <br/>
+        {%if ent_1 %} 
+        <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 2/{{ent_1.0.academic_year}}</div>
+        <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    <br/>
+    {% endif %}
+    {%for obj in ent_1%}     
+        {% ifequal obj.semester "2" %}
+        <div class="col-sm-3" style="text-align: center;">{{obj.course_id}}</div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %}
+    {% endfor %}      
+    </div>
+   
+    {%if ent_2 %} 
+    <div class="row" style=" width: 700px;">
+    <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 1/{{ent_2.0.academic_year}}</div>
+    <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    </div>
+    {% endif %}
+    <div class="row" style="width: 700px;" >
+    {%for obj in ent_2%} 
+        {% ifequal obj.semester "1" %}
+        <div class="col-sm-3" style="text-align: center;" >{{obj.course_id}} </div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %} 
+    {% endfor %}
+        <br/>
+        <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 2/{{ent_2.0.academic_year}}</div>
+        <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    <br/>
+    {%for obj in ent_2%}     
+        {% ifequal obj.semester "2" %}
+        <div class="col-sm-3" style="text-align: center;">{{obj.course_id}}</div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %}
+    {% endfor %}      
+    </div>
+
+    {%if ent_3 %} 
+    {%for obj in ent_3%} 
+    {% empty %}
+        <div class="container text-center"> **************** ไม่มีข้อมูลการลงทะเบียน ****************</div>
+    {% endfor %}
+    <div class="row" style=" width: 700px;">
+    <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 1/{{ent_3.0.academic_year}}</div>
+    <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    </div>
+    {% endif %}
+    <div class="row" style="width: 700px;" >
+    {%for obj in ent_3%} 
+        {% ifequal obj.semester "1" %}
+        <div class="col-sm-3" style="text-align: center;" >{{obj.course_id}} </div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %} 
+    {% endfor %}
+        <br/>
+        {%if ent_3 %} 
+        <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 2/{{ent_3.0.academic_year}}</div>
+        <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    <br/>
+    {% endif %}
+    {%for obj in ent_3%}     
+        {% ifequal obj.semester "2" %}
+        <div class="col-sm-3" style="text-align: center;">{{obj.course_id}}</div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %}
+    {% endfor %}      
+    </div>
+
+    {%if ent_4 %} 
+    {%for obj in ent_4%} 
+    {% empty %}
+        <div class="container text-center"> **************** ไม่มีข้อมูลการลงทะเบียน ****************</div>
+    {% endfor %}
+    <div class="row" style=" width: 700px;">
+    <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 1/{{ent_4.0.academic_year}}</div>
+    <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    </div>
+    {% endif %}
+    <div class="row" style="width: 700px;" >
+    {%for obj in ent_4%} 
+        {% ifequal obj.semester "1" %}
+        <div class="col-sm-3" style="text-align: center;" >{{obj.course_id}} </div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %} 
+    {% endfor %}
+    {%if ent_4 %} 
+        <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 2/{{ent_4.0.academic_year}}</div>
+        <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    <br/>
+    {% endif %}
+    {%for obj in ent_4%}     
+        {% ifequal obj.semester "2" %}
+        <div class="col-sm-3" style="text-align: center;">{{obj.course_id}}</div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %}
+    {% endfor %}      
+    </div>
+
+    {%if ent_5 %} 
+    {%for obj in ent_5%} 
+    {% empty %}
+        <div class="container text-center"> **************** ไม่มีข้อมูลการลงทะเบียน ****************</div>
+    {% endfor %}
+    <div class="row" style=" width: 700px;">
+    <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 1/{{ent_5.0.academic_year}}</div>
+    <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    </div>
+    {% endif %}
+    <div class="row" style="width: 700px;" >
+    {%for obj in ent_5%} 
+        {% ifequal obj.semester "1" %}
+        <div class="col-sm-3" style="text-align: center;" >{{obj.course_id}} </div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %} 
+    {% endfor %}
+        <br/>
+        {%if ent_5 %} 
+        <div class="col-sm-12 text-center" style="margin-top: 20px;">ปีการศึกษา 2/{{ent_5.0.academic_year}}</div>
+        <div class="col-sm-3 header"><p style="text-align: center;">รหัสวิชา </p></div><div class="col-sm-6 header"><p style="text-align: center;">ชื่อวิชา</p></div><div class="col-sm-3 header"><p style="text-align: center;">ผลการศึกษา </p></div>
+    <br/>
+    {% endif %}
+    {%for obj in ent_5%}     
+        {% ifequal obj.semester "2" %}
+        <div class="col-sm-3" style="text-align: center;">{{obj.course_id}}</div>
+        <div class="col-sm-6">{{obj.course_name}} </div>
+        <div class="col-sm-3" style="text-align: center;">{{obj.grade}}</div><br/>
+        {% endifequal %}
+    {% endfor %}      
+    </div>
+
+    </div>
+    </div>
+
+</form>   
+    
+{% endblock %}

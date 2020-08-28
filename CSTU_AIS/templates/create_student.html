@@ -1,0 +1,104 @@
+{% extends 'studentbase.html' %}
+{% block title %}Student Create{% endblock %}
+{% block content %}
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <h1 id="a">Create New User</h1>
+    <p>**จำเป็นต้องกรอกให้ครบทุกช่อง</p>
+    <p>รหัสนักศึกษา : {{request.user}} </p>
+    <p>คำนำหน้า: <select name="title"> 
+        <option value=1>นาย</option>
+        <option value=2>นาง</option>
+        <option value=3>นางสาว</option>
+    </select></p>
+    <p>ชื่อ : <input type="text" name="name" required/></p>
+    <p>นามสกุล : <input type="text" name="surname" required/></p>
+    <p>สถานะ : <input type="text" name="status" required/></p>
+    <p>ระดับการศึกษา: <select name="degree" > 
+        <option value="ปริญญาตรี">ปริญญาตรี</option>
+        <option value="ปริญญาโท">ปริญญาโท</option>
+        <option value="ปริญญาเอก">ปริญญาเอก</option>
+    </select></p>
+    <p>หลักสูตร : <select  id = 'curri' name="curri" onchange="selectMajor(this);"> 
+        <option value=0>หลักสูตร</option>
+        <option value=1>56</option>
+        <option value=2>61</option>
+        
+    </select>
+    <p>วิชาเอก/สาขา : <select id="major" name="major">
+        <option value="0">วิชาเอก/สาขา</option>
+      </select>
+      <p>ศูนย์: <select name="campus"> 
+        <option value="ท่าพระจันทร์">ท่าพระจันทร์</option>
+        <option value="รังสิต">รังสิต</option>
+        <option value="ลำปาง">ลำปาง</option>
+    </select></p>
+    <p>เกรดเฉลี่ยนสะสม : <input type="text" name="gpa" step="0.01" maxlength="4" required/></p>
+    ที่อยู่ : </br> 
+    <textarea cols="35" rows="8" name="address" required>
+    </textarea><br/>
+    <p>เบอร์โทรศัพท์ : <input type="text" name="phone" placeholder="ex : 088-222222" pattern="\d{3}[-]\d{7}" required maxlength="11" size="15" required/></p>
+    <p>อีเมล์ : <input type="email" name="email" required/></p>
+    <p>ไอดีไลน์ : <input type="text" name="line_id"/></p>
+    
+    <p>ข้อมูลผู้ปกครอง</p>
+    <p>คำนำหน้า: <select id="curri" name="p_title"> 
+        <option value=1>นาย</option>
+        <option value=2>นาง</option>
+        <option value=3>นางสาว</option>
+    </select></p>
+    <p>ชื่อ : <input type="text" name="p_name" required/></p>
+    <p>นามสกุล : <input type="text" name="p_surname" required/></p>
+    <p>ความเกี่ยวข้อง : <input type="text" name="p_relation" required/></p>
+    <p>เบอร์โทรศัพท์ที่สามารถติดต่อได้ : <input type="text" name="p_phone" maxlength="11" 
+        placeholder="ex : 088-222222" pattern="\d{3}[-]\d{7}" required size="15" required/></p>
+    <p>รายได้/ปี : <input type="number" name="p_income" required/> บาท</p>
+
+    
+    <input type="submit" value="OK"/>
+
+    <script type="text/javascript" language="Javascript">
+    
+    var lists = new Array(3) 
+        lists[0] = [""]; 
+        lists[1] = ["กลุ่มวิชาวิทยาการคอมพิวเตอร (CS)", "กลุ่มวิชาวิศวกรรมซอฟต์แวร์ (SE)", "กลุ่มวิชาคอมพิวเตอร์กราฟิกส์ (CG)"]; 
+        lists[2] = ["คอมพิวเตอร์และวิทยาการสารสนเทศ (CIS)", "คอมพิวเตอร์ประยุกต์ (ACS)", "เทคโนโลยีการเรียนรู้ (LT)"]; 
+    
+        function selectMajor(selectObj) { 
+
+            var idx = selectObj.selectedIndex; 
+            var which = selectObj.options[idx].value; 
+
+            cList = lists[which]; 
+
+            var cSelect = document.getElementById("major"); 
+            var len=cSelect.options.length; 
+            while (cSelect.options.length > 0) { 
+                cSelect.remove(0); 
+        }
+        
+        var newOption; 
+ 
+        for (var i=0; i<cList.length; i++) { 
+            newOption = document.createElement("option"); 
+            newOption.value = i;  
+            newOption.text= cList[i]; 
+
+        try { 
+            cSelect.add(newOption); 
+        } 
+        catch (e) { 
+            cSelect.appendChild(newOption); 
+        } 
+    } 
+    } 
+
+    window.onload = function() {
+    }
+    </script>
+        
+    </form> 
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'staffbase.html' %}
+{% load static %}
+{% block title %}Enrollment Upload{% endblock %}
+{% block content %}
+
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="outer">
+                    <div class="head">เพิ่มข้อมูลการลงทะเบียนนักศึกษาจากไฟล์ .csv / .xlsx</div>
+                    <div class="inner">
+                    <label for="file1"> เลือกไฟล์ </label>
+                    <input type="file" id="file1" name="file">
+                    <small>เฉพาะนามสกุล .csv หรือ .xlsx เท่านั้น</small>  
+                    <input type="submit" value="Upload">     
+                    </div>
+                    </div>
+
+                    <div class="outer">
+                        <div class="head">ตัวอย่างไฟล์และไฟล์ต้นแบบสำหรับอัพโหลด</div>
+                        <div class="inner">
+                        <img src="{% static 'enrollment-xlxs-example.png' %}" style="width: 800px;">
+                        
+                        <div  style="margin-top: 10px;">คำอธิบาย : <br/>
+                            <p style="font-size: 13px;">
+                            6. คอลัมน์ A - STUDENTCODE_SALT_HASH หมายถึง รหัสนักศึกษา<br/>
+                            7. คอลัมน์ B - ACADYEAR หมายถึง ปีการศึกษาที่ลงทะเบียน<br/>
+                            8. คอลัมน์ C - SEMESTER หมายถึง ภาคการศึกษาที่ลงทะเบียน<br/>
+                            8. คอลัมน์ D - COURSECODE หมายถึง รหัสวิชาที่ลงทะเบียน<br/>
+                            8. คอลัมน์ E - COURSENAMEENG หมายถึง ชื่อวิชาที่ลงทะเบียน (ภาษาอังกฤษ)<br/>
+                            8. คอลัมน์ F - CREDITSATISFY หมายถึง จำนวนหน่วยกิตที่ได้<br/>
+                            8. คอลัมน์ G - GRADE หมายถึง ผลการศึกษา<br/>
+                        </p>
+                        </div>
+                        <div style="margin-top: 10px;"> <strong>ดาวน์โหลดไฟล์ต้นแบบคลิก <a href="https://drive.google.com/uc?export=download&id=1LV1sN9bIbBjumO9u9KVCzakwgn3NtVY-">ที่นี่</a></strong></div>  
+                    
+                    </div>
+                    </div>
+            </form>
+
+            {% if messages %}
+                {% for message in messages %}
+                 {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        
+                {% endfor %}
+        
+            {% endif %}
+
+    {% endblock %}

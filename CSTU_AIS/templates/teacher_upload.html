@@ -1,0 +1,43 @@
+{% extends 'staffbase.html' %}
+{% load static %}
+{% block title %}Add/Update Teacher Info{% endblock %}
+{% block content %}
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+       
+    <div class="outer">
+    <div class="head">เพิ่มข้อมูลอาจารย์จากไฟล์ .csv / .xlsx</div>
+    <div class="inner">            
+    <label for="file1"> Upload a file</label>
+    <input type="file" id="file1" name="file">
+    <small>เฉพาะนามสกุล .csv หรือ .xlsx เท่านั้น</small>
+    <input type="submit" value="Upload">
+    </div>
+    </div>    
+    
+    <div class="outer">
+    <div class="head">ตัวอย่างไฟล์และไฟล์ต้นแบบสำหรับอัพโหลด</div>
+    <div class="inner">
+    <img src="{% static 'teacher-xlxs-example.png' %}" style="width: 800px;">
+        
+    <div  style="margin-top: 10px;">คำอธิบาย : <br/>
+        <p style="font-size: 13px;">1. เเถว A - teacher_id หมายถึง รหัสอาจารย์<br/>
+        2. แถว B - academic_position หมายถึง ตำแหน่งทางวิชาการ<br/>
+        3. แถว C - education_position หมายถึง ตำแหน่งทางการศึกษา <br/>
+        4. แถว D - name หมายถึง ชื่อ<br/>
+        5. แถว E - surname หมายถึง นามสกุล<br/>
+        6. แถว F - email หมายถึง อีลเมล์<br/>
+        7. แถว G - campus หมายถึง ประจำศูยน์<br/>
+        8. แถว H - status หมายถึง สถานะ<br/></p>
+    </div>
+    <div style="margin-top: 10px;"> <strong>ดาวน์โหลดไฟล์ต้นแบบคลิก <a href="https://drive.google.com/uc?export=download&id=1NzH7G3oNU19H8rfeG4B1ViuTovQw6F2s">ที่นี่</a><strong</div>
+    </div>
+    </div>
+    </form>
+            
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
